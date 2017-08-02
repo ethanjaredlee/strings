@@ -4,11 +4,16 @@ function String(d, p) {
     r = d/2;
     this.start = createVector(r * cos(theta), r * sin(theta));
     // TODO calculate the ending point for the line
-    this.end = createVector(0,0);
+    this.end = this.start.copy()
     // TODO finale is the point on the circle that the line will eventually end at, end is the end of the line being drawn
     this.finale = createVector(0,0);
-    this.direction = atan2(this.start.x - point.x, this.start.y - point.y);
-    this.speed = 5;
+    var direction = p5.Vector.sub(this.start, p).normalize();
+    this.velocity = p5.Vector.mult(direction, 1);
+
+    this.crawl = function() {
+        console.log('hello');
+        this.end.add(this.velocity);
+    }
 
     this.display = function() {
         line(this.start.x, this.start.y, this.end.x, this.end.y);
