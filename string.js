@@ -11,11 +11,17 @@ function String(d, p) {
     this.velocity = p5.Vector.mult(direction, 1);
 
     this.crawl = function() {
-        console.log('hello');
         this.end.add(this.velocity);
     }
 
     this.display = function() {
         line(this.start.x, this.start.y, this.end.x, this.end.y);
+    }
+
+    this.outOfRange = function() {
+        if (Math.abs(this.end.x) > width/2 ||
+            Math.abs(this.end.y) > height) {
+            return true;
+        }
     }
 }

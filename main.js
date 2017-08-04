@@ -17,8 +17,13 @@ function draw() {
     for (i = 0; i<strings.length; i++) {
         strings[i].crawl();
         strings[i].display();
+        if (strings[i].outOfRange()) {
+            strings.splice(i, 1);
+            console.log('spliced');
+        }
     }
 
+    console.log(strings.length);
     if (keyIsPressed) {
         background(160);
     }
