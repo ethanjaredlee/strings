@@ -1,10 +1,10 @@
 var strings = [];
 var setter;
-var drawSetter;
+var setterInit;
 
 function setup() {
     createCanvas(600, 600);
-    background(160);
+    background(0);
     count = 0; //used to determine when to add a new line
 }
 
@@ -14,10 +14,13 @@ function draw() {
     fill(200);
     mousePos = createVector(mouseX - width/2, mouseY - height/2);
 
+    // count is used to slow down how lines r drawn
     count++;
     if (count % 50 == 0) {
-        s = new String(diameter, createVector(0,0));
-        strings.push(s);
+        if (setterInit) {
+            s = new String(diameter, setter);
+            strings.push(s);
+        }
     }
 
     for (i = 0; i<strings.length; i++) {
@@ -29,20 +32,20 @@ function draw() {
     }
 
     if (keyIsPressed) {
-        background(160);
+        background(0);
         strings = [];
     }
 
-    if (drawSetter) {
+    if (setterInit) {
         noStroke();
         ellipse(setter.x, setter.y, 7, 7);
     }
 }
 
 function mouseClicked() {
-    if (Math.abs(mousePos.x) < diameter/2 && Math.abs(mousePos.y) < diameter/2 && !drawSetter) {
+    if (Math.abs(mousePos.x) < diameter/2 && Math.abs(mousePos.y) < diameter/2 && !setterInit) {
         setter = createVector(mousePos.x, mousePos.y);
-        drawSetter = true;
+        setterInit = true;
     }
 }
 

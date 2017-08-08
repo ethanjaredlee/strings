@@ -5,14 +5,16 @@ function String(d, p) {
     this.start = createVector(r * cos(theta), r * sin(theta));
     // TODO calculate the ending point for the line
     this.end = this.start.copy()
-    // TODO finale is the point on the circle that the line will eventually end at, end is the end of the line being drawn
-    this.finale = createVector(0,0);
-    var direction = p5.Vector.sub(this.start, p).normalize();
+    var direction = p5.Vector.sub(p, this.start).normalize();
     this.velocity = p5.Vector.mult(direction, 1);
     this.c = color(random(0,255), random(0, 255), random(0, 255));
+    this.life = 0;
 
     this.crawl = function() {
-        this.end.add(this.velocity);
+        if (!this.circumference()) {
+            this.end.add(this.velocity);
+            this.life++;
+        }
     }
 
     this.display = function() {
@@ -29,8 +31,16 @@ function String(d, p) {
     }
 
     this.circumference = function() {
-        if ((this.end.x)^2 + (this.end.y)^2 > 1) {
+        if (Math.pow(this.end.x, 2) + Math.pow(this.end.y, 2) > Math.pow(r, 2) && this.life > 200) {
+            if (this.life > 200) {
+                console.log(r^2);
+            }
+            if ((this.end.x)^2 + (this.end.y)^2 > r^2) {
+                console.log('you suck');
+            }
             return true;
         }
+
+        return false;
     }
 }
