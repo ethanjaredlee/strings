@@ -32,7 +32,6 @@ function draw() {
     }
 
     if (keyIsPressed) {
-        console.log('help');
         background(0);
         strings = [];
     }
