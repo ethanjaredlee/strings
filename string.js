@@ -3,7 +3,6 @@ function String(d, p) {
     theta = random(0, TWO_PI);
     r = d/2;
     this.start = createVector(r * cos(theta), r * sin(theta));
-    // TODO calculate the ending point for the line
     this.end = this.start.copy()
     var direction = p5.Vector.sub(p, this.start).normalize();
     this.velocity = p5.Vector.mult(direction, 1);
@@ -32,12 +31,6 @@ function String(d, p) {
 
     this.circumference = function() {
         if (Math.pow(this.end.x, 2) + Math.pow(this.end.y, 2) > Math.pow(r, 2) && this.life > 200) {
-            if (this.life > 200) {
-                console.log(r^2);
-            }
-            if ((this.end.x)^2 + (this.end.y)^2 > r^2) {
-                console.log('you suck');
-            }
             return true;
         }
 
